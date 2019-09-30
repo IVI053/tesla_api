@@ -8,8 +8,12 @@ import tesla_api.constant as const
 
 
 class TeslaApiClient:
-    def __init__(self, pwmgr):
-        self._tm = TokenManager(pwmgr)
+    def __init__(self, pwmgr_or_acc, pw=None, tokenfile='token.json'):
+        if pw == None:
+            self._tm = TokenManager(pwmgr_or_acc,tokenfile)
+        else:
+            from .passwordmanager import Hardcoded
+            self._tm = TokenManager(Hardcoded(pwmgr_or_acc,pw),tokenfile)
 
     def _get_headers(self):
         return {'Authorization': 'Bearer {}'.format(self._tm.getAT())}

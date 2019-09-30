@@ -12,9 +12,19 @@ pwmgr = Interactive()
 #pwmgr = Hardcoded('account','password')
 
 from tesla_api import TeslaApiClient
+
+# new style 2.x.x with defined password manager
 client = TeslaApiClient(pwmgr)
+
+# old 1.x.x style with hardcoded account data
+# NOT RECOMMENDED any more!
+#client = TeslaApiClient('account','password')
+
+# to use multiple accounts the tokenfile can be specified
+client2 = TeslaApiClient(pwmgr,tokenfile='token2.json')
 
 vehicles = client.list_vehicles()
 
 for v in vehicles:
-	print('%s\t%s (%s)\t%s' % (v.id,v.display_name,v.vin,v.state))
+    print('%s\t%s (%s)\t%s' % (v.id,v.display_name,v.vin,v.state))
+

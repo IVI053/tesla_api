@@ -5,10 +5,11 @@ import json
 import tesla_api.constant as const
 
 class TokenManager:
-    def __init__(self, pwmgr):
+    def __init__(self, pwmgr, tokenfile):
         self._pwmgr = pwmgr
+        self._tokenfile = tokenfile
         try:
-            with open('token.json') as jsonfile:
+            with open(self._tokenfile) as jsonfile:
                 self._token = json.load(jsonfile)
         except FileNotFoundError:
             self._token = None
@@ -62,7 +63,7 @@ class TokenManager:
             self._refresh_token(self._token['refresh_token'])
 
     def _save(self):
-        with open('token.json','w') as jsonfile:
+        with open(self._tokenfile,'w') as jsonfile:
             json.dump(self._token,jsonfile,indent=2)
 
     def getAT(self):
