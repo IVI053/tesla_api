@@ -8,8 +8,8 @@ import tesla_api.constant as const
 
 
 class TeslaApiClient:
-    def __init__(self):
-        self._tm = TokenManager()
+    def __init__(self, pwmgr):
+        self._tm = TokenManager(pwmgr)
 
     def _get_headers(self):
         return {'Authorization': 'Bearer {}'.format(self._tm.getAT())}

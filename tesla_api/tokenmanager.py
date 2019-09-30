@@ -1,25 +1,26 @@
 from datetime import datetime, timedelta
 import requests
 import json
-from getpass import getpass
 
 import tesla_api.constant as const
 
 class TokenManager:
-    def __init__(self):
+    def __init__(self, pwmgr):
+        self._pwmgr = pwmgr
         try:
             with open('token.json') as jsonfile:
                 self._token = json.load(jsonfile)
         except FileNotFoundError:
             self._token = None
 
+
     def _get_new_token(self):
         request_data = {
             'grant_type': 'password',
             'client_id': const.CLIENT_ID,
             'client_secret': const.CLIENT_SECRET,
-            'email': input('Account: '),
-            'password': getpass('Password: ')
+            'email': self._pwmgr.get_account(),
+            'password': self._pwmgr.get_password()
         }
 
         response = requests.post(const.TOKEN_URL, data=request_data)
