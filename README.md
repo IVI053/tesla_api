@@ -7,6 +7,6 @@ Because of this it is not backward compatible to versions 1.x.x.
 
 ## Usage
 
-See example.py
+See `example.py` for more details.
 
 On first use you will get asked to provide your credentials interactively. As you should never store credentials in code, only OAUTH-Tokens get saved in `token.json` and will be loaded from there for future requests.
